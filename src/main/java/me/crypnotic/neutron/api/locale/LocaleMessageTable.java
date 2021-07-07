@@ -24,18 +24,18 @@
 */
 package me.crypnotic.neutron.api.locale;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Optional;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.api.Neutron;
 import me.crypnotic.neutron.api.configuration.Configuration;
 import me.crypnotic.neutron.util.StringHelper;
-import net.kyori.text.Component;
+import net.kyori.adventure.text.Component;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class LocaleMessageTable {

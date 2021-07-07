@@ -24,21 +24,20 @@
 */
 package me.crypnotic.neutron.module.serverlist;
 
-import java.util.Arrays;
-import java.util.List;
-
 import lombok.Getter;
-import net.kyori.text.Component;
-import net.kyori.text.TextComponent;
+import net.kyori.adventure.text.Component;
 import ninja.leaping.configurate.objectmapping.Setting;
 import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
+
+import java.util.Arrays;
+import java.util.List;
 
 @ConfigSerializable
 public class ServerListConfig {
 
     @Getter
     @Setting("motd")
-    private Component motd = TextComponent.of("&7This velocity proxy is proudly powered by &bNeutron");
+    private Component motd = Component.text("&7This velocity proxy is proudly powered by &bNeutron");
 
     @Getter
     @Setting("player-count")

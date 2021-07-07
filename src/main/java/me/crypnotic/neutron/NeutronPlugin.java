@@ -24,17 +24,12 @@
 */
 package me.crypnotic.neutron;
 
-import java.nio.file.Path;
-
-import org.slf4j.Logger;
-
 import com.google.inject.Inject;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
-
 import lombok.Getter;
 import me.crypnotic.neutron.api.Neutron;
 import me.crypnotic.neutron.api.configuration.Configuration;
@@ -42,6 +37,9 @@ import me.crypnotic.neutron.event.StateHandler;
 import me.crypnotic.neutron.manager.ModuleManager;
 import me.crypnotic.neutron.manager.locale.LocaleManager;
 import me.crypnotic.neutron.manager.user.UserManager;
+import org.slf4j.Logger;
+
+import java.nio.file.Path;
 
 @Plugin(id = "@ID@", name = "@NAME@", version = "@VERSION@", description = "@DESCRIPTION@")
 public class NeutronPlugin {

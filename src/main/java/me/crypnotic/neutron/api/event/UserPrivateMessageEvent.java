@@ -24,16 +24,15 @@
 */
 package me.crypnotic.neutron.api.event;
 
-import java.util.Optional;
-
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.event.ResultedEvent;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import me.crypnotic.neutron.api.user.User;
-import net.kyori.text.Component;
+import net.kyori.adventure.text.Component;
+
+import java.util.Optional;
 
 public final class UserPrivateMessageEvent implements ResultedEvent<UserPrivateMessageEvent.PrivateMessageResult> {
 

@@ -24,12 +24,12 @@
 */
 package me.crypnotic.neutron.module.command;
 
-import java.util.function.Supplier;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.api.command.CommandWrapper;
 import me.crypnotic.neutron.module.command.options.*;
+
+import java.util.function.Supplier;
 
 @RequiredArgsConstructor
 public enum Commands {
@@ -39,7 +39,8 @@ public enum Commands {
     GLIST("glist", GlistCommand::new),
     MESSAGE("message", MessageCommand::new),
     REPLY("reply", ReplyCommand::new),
-    SEND("send", SendCommand::new);
+    SEND("send", SendCommand::new),
+    HUB("hub", HubCommand::new);
 
     @Getter
     private final String key;

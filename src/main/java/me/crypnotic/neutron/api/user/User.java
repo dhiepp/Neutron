@@ -24,11 +24,11 @@
 */
 package me.crypnotic.neutron.api.user;
 
-import java.util.Optional;
-import java.util.UUID;
-
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
+
+import java.util.Optional;
+import java.util.UUID;
 
 public interface User<T extends CommandSource> {
 

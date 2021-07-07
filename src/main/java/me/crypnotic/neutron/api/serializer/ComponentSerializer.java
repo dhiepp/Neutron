@@ -25,10 +25,9 @@
 package me.crypnotic.neutron.api.serializer;
 
 import com.google.common.reflect.TypeToken;
-
 import me.crypnotic.neutron.util.StringHelper;
-import net.kyori.text.Component;
-import net.kyori.text.serializer.legacy.LegacyComponentSerializer;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import ninja.leaping.configurate.objectmapping.serialize.TypeSerializer;
@@ -51,7 +50,7 @@ public class ComponentSerializer implements TypeSerializer<Component> {
     @Override
     public void serialize(TypeToken<?> type, Component obj, ConfigurationNode value) throws ObjectMappingException {
         if (obj != null) {
-            value.setValue(LegacyComponentSerializer.legacy().serialize(obj, '&'));
+            value.setValue(LegacyComponentSerializer.legacy('&').serialize(obj));
         }
     }
 }

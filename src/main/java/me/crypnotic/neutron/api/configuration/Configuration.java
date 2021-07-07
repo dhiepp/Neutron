@@ -24,12 +24,7 @@
 */
 package me.crypnotic.neutron.api.configuration;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-
 import com.google.common.base.Preconditions;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,6 +34,10 @@ import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 
 @AllArgsConstructor
 public class Configuration {

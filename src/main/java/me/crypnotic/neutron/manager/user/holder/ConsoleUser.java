@@ -24,17 +24,16 @@
 */
 package me.crypnotic.neutron.manager.user.holder;
 
-import java.util.Optional;
-import java.util.UUID;
-
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.ConsoleCommandSource;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import me.crypnotic.neutron.api.Neutron;
 import me.crypnotic.neutron.api.user.User;
+
+import java.util.Optional;
+import java.util.UUID;
 
 // TODO: Consider whether this should support *any* CommandSource that isn't a player (ie plugin-provided CommandSources)
 @RequiredArgsConstructor
