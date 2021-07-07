@@ -24,12 +24,12 @@
 */
 package me.crypnotic.neutron.api;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.util.StringHelper;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @RequiredArgsConstructor
 public class StateResult {

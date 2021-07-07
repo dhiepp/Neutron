@@ -25,13 +25,12 @@
 package me.crypnotic.neutron.module.command.options;
 
 import com.velocitypowered.api.command.CommandSource;
-
 import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.api.command.CommandContext;
 import me.crypnotic.neutron.api.command.CommandWrapper;
 import me.crypnotic.neutron.api.event.AlertBroadcastEvent;
 import me.crypnotic.neutron.api.locale.LocaleMessage;
-import net.kyori.text.Component;
+import net.kyori.adventure.text.Component;
 
 @RequiredArgsConstructor
 public class AlertCommand extends CommandWrapper {

@@ -24,13 +24,13 @@
 */
 package me.crypnotic.neutron.util;
 
+import me.crypnotic.neutron.NeutronPlugin;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
-import me.crypnotic.neutron.NeutronPlugin;
 
 public class FileHelper {
 

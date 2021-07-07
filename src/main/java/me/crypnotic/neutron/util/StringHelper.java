@@ -24,24 +24,22 @@
 */
 package me.crypnotic.neutron.util;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
-
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.server.ServerPing.SamplePlayer;
-
 import me.crypnotic.neutron.api.Neutron;
 import me.crypnotic.neutron.api.locale.LocaleMessage;
 import me.crypnotic.neutron.api.locale.LocaleMessageTable;
 import me.crypnotic.neutron.manager.locale.LocaleManager;
-import net.kyori.text.Component;
-import net.kyori.text.TextComponent;
-import net.kyori.text.format.Style;
-import net.kyori.text.serializer.gson.GsonComponentSerializer;
-import net.kyori.text.serializer.legacy.LegacyComponentSerializer;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.Style;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
 
 public class StringHelper {
 
@@ -50,7 +48,7 @@ public class StringHelper {
             return null;
         }
 
-        return LegacyComponentSerializer.legacyLinking().deserialize(text, '&');
+        return LegacyComponentSerializer.legacy('&').deserialize(text);
     }
 
     public static Component serialize(String json) {
@@ -58,7 +56,7 @@ public class StringHelper {
             return null;
         }
 
-        return GsonComponentSerializer.INSTANCE.deserialize(json);
+        return GsonComponentSerializer.gson().deserialize(json);
     }
 
     public static String format(String text, Object... params) {
@@ -78,15 +76,13 @@ public class StringHelper {
         Component lastRootChild = rootChildren.get(rootChildren.size() - 1);
         Style lastRootChildStyle = lastRootChild.style();
 
-        Component result = root.append(TextComponent.builder().content("").style(lastRootChildStyle).append(child).build());
-
-        return result;
+        return root.append(Component.text("").style(lastRootChildStyle).append(child));
     }
 
     public static SamplePlayer[] toSamplePlayerArray(List<String> input) {
         SamplePlayer[] result = new SamplePlayer[input.size()];
         for (int i = 0; i < input.size(); i++) {
-            result[i] = new SamplePlayer(LegacyComponentSerializer.legacy().serialize(color(input.get(i))), UUID.randomUUID());
+            result[i] = new SamplePlayer(LegacyComponentSerializer.legacy('&').serialize(color(input.get(i))), UUID.randomUUID());
         }
         return result;
     }

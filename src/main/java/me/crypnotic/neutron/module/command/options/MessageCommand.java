@@ -24,21 +24,19 @@
 */
 package me.crypnotic.neutron.module.command.options;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
-
 import me.crypnotic.neutron.api.command.CommandContext;
 import me.crypnotic.neutron.api.command.CommandWrapper;
 import me.crypnotic.neutron.api.event.UserPrivateMessageEvent;
 import me.crypnotic.neutron.api.locale.LocaleMessage;
 import me.crypnotic.neutron.api.user.User;
-import net.kyori.text.Component;
-import net.kyori.text.TextComponent;
+import net.kyori.adventure.text.Component;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class MessageCommand extends CommandWrapper {
 
@@ -52,7 +50,7 @@ public class MessageCommand extends CommandWrapper {
 
         String sourceName = source instanceof Player ? ((Player) source).getUsername() : "Console";
 
-        Component content = TextComponent.of(context.join(" ", 1));
+        Component content = Component.text(context.join(" ", 1));
         Component sourceMessage = getMessage(source, LocaleMessage.MESSAGE_SENDER, target.getUsername()).append(content);
         Component targetMessage = getMessage(target, LocaleMessage.MESSAGE_RECEIVER, sourceName).append(content);
 
@@ -81,7 +79,8 @@ public class MessageCommand extends CommandWrapper {
     }
 
     @Override
-    public List<String> suggest(CommandSource source, String[] args) {
+    public List<String> suggest(Invocation invocation) {
+        String[] args = invocation.arguments();
         if (args.length == 1) {
             return getNeutron().getProxy().matchPlayer(args[0]).stream().map(Player::getUsername).collect(Collectors.toList());
         }

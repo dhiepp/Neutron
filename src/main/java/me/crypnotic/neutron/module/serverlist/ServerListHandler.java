@@ -24,16 +24,15 @@
 */
 package me.crypnotic.neutron.module.serverlist;
 
-import java.util.stream.Collectors;
-
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyPingEvent;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.server.ServerPing;
 import com.velocitypowered.api.proxy.server.ServerPing.Builder;
-
 import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.util.StringHelper;
+
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class ServerListHandler {

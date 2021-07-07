@@ -25,7 +25,6 @@
 package me.crypnotic.neutron.util;
 
 import com.google.common.reflect.TypeToken;
-
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 

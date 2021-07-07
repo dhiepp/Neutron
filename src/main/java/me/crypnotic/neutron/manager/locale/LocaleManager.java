@@ -24,11 +24,6 @@
 */
 package me.crypnotic.neutron.manager.locale;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.NeutronPlugin;
@@ -38,6 +33,11 @@ import me.crypnotic.neutron.api.configuration.Configuration;
 import me.crypnotic.neutron.api.locale.LocaleMessageTable;
 import me.crypnotic.neutron.util.ConfigHelper;
 import me.crypnotic.neutron.util.FileHelper;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 @RequiredArgsConstructor
 public class LocaleManager implements Reloadable {

@@ -22,23 +22,32 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package me.crypnotic.neutron.api.event;
+package me.crypnotic.neutron.module.command.options;
 
 import com.velocitypowered.api.command.CommandSource;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import me.crypnotic.neutron.api.user.User;
-import net.kyori.adventure.text.Component;
+import com.velocitypowered.api.proxy.Player;
+import com.velocitypowered.api.proxy.server.RegisteredServer;
+import me.crypnotic.neutron.api.command.CommandContext;
+import me.crypnotic.neutron.api.command.CommandWrapper;
+import me.crypnotic.neutron.api.locale.LocaleMessage;
+import me.crypnotic.neutron.module.command.CommandModule;
 
-import java.util.Optional;
+public class HubCommand extends CommandWrapper {
+    @Override
+    public void handle(CommandSource source, CommandContext context) {
+        assertPermission(source, "neutron.command.hub");
 
-@RequiredArgsConstructor
-public final class AlertBroadcastEvent {
+        String server = CommandModule.instance.getConfig().getHubServer();
+        RegisteredServer targetServer = getNeutron().getProxy().getServer(server).orElse(null);
+        assertNotNull(source, targetServer, LocaleMessage.UNKNOWN_SERVER, server);
+        assertPlayer(source, LocaleMessage.PLAYER_ONLY_SUBCOMMAND);
 
-    @Getter
-    private final Optional<User<? extends CommandSource>> author;
-    @Getter
-    private final String unformattedText;
-    @Getter
-    private final Component message;
+        Player player = (Player) source;
+        player.createConnectionRequest(targetServer).fireAndForget();
+    }
+
+    @Override
+    public String getUsage() {
+        return "/hub";
+    }
 }

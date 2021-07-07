@@ -24,17 +24,16 @@
 */
 package me.crypnotic.neutron.module.command.options;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ServerConnection;
-
 import me.crypnotic.neutron.api.command.CommandContext;
 import me.crypnotic.neutron.api.command.CommandWrapper;
 import me.crypnotic.neutron.api.locale.LocaleMessage;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FindCommand extends CommandWrapper {
 
@@ -54,7 +53,8 @@ public class FindCommand extends CommandWrapper {
     }
 
     @Override
-    public List<String> suggest(CommandSource source, String[] args) {
+    public List<String> suggest(Invocation invocation) {
+        String[] args = invocation.arguments();
         if (args.length == 1) {
             return getNeutron().getProxy().matchPlayer(args[0]).stream().map(Player::getUsername).collect(Collectors.toList());
         }

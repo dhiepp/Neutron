@@ -24,19 +24,18 @@
 */
 package me.crypnotic.neutron.module.announcement;
 
+import com.velocitypowered.api.scheduler.ScheduledTask;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import me.crypnotic.neutron.NeutronPlugin;
+import me.crypnotic.neutron.util.StringHelper;
+import net.kyori.adventure.text.Component;
+
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-
-import com.velocitypowered.api.scheduler.ScheduledTask;
-
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import me.crypnotic.neutron.NeutronPlugin;
-import me.crypnotic.neutron.util.StringHelper;
-import net.kyori.text.Component;
 
 @RequiredArgsConstructor
 public class Announcement {
@@ -70,7 +69,7 @@ public class Announcement {
             init();
         }
 
-        plugin.getProxy().broadcast(iterator.next());
+        plugin.getProxy().sendMessage(iterator.next());
     }
 
     public static Announcement create(NeutronPlugin neutron, String id, AnnouncementData data) {

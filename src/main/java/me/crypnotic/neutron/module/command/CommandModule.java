@@ -24,19 +24,32 @@
 */
 package me.crypnotic.neutron.module.command;
 
+import lombok.Getter;
+import me.crypnotic.neutron.api.StateResult;
+import me.crypnotic.neutron.api.command.CommandWrapper;
+import me.crypnotic.neutron.api.module.Module;
+import me.crypnotic.neutron.util.ConfigHelper;
+import ninja.leaping.configurate.ConfigurationNode;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.crypnotic.neutron.api.StateResult;
-import me.crypnotic.neutron.api.command.CommandWrapper;
-import me.crypnotic.neutron.api.module.Module;
-import ninja.leaping.configurate.ConfigurationNode;
-
 public class CommandModule extends Module {
 
     private Map<Commands, CommandWrapper> commands = new HashMap<Commands, CommandWrapper>();
+
+    @Getter
+    private CommandConfig config;
+
+    private CommandHandler handler;
+
+    public static CommandModule instance;
+
+    public CommandModule() {
+        instance = this;
+    }
 
     @Override
     public StateResult init() {
@@ -58,14 +71,24 @@ public class CommandModule extends Module {
             List<String> aliases = node.getNode("aliases").getList(Object::toString);
 
             wrapper.setEnabled(node.getNode("enabled").getBoolean());
-            wrapper.setAliases(aliases.toArray(new String[aliases.size()]));
+            wrapper.setAliases(aliases.stream().skip(1).toArray(String[]::new));
 
             if (wrapper.isEnabled()) {
-                getNeutron().getProxy().getCommandManager().register(wrapper, wrapper.getAliases());
+                getNeutron().getProxy().getCommandManager().register(
+                        aliases.get(0), wrapper, wrapper.getAliases());
             }
 
             commands.put(spec, wrapper);
         }
+
+        this.config = ConfigHelper.getSerializable(getRootNode(), new CommandConfig());
+        if (config == null) {
+            return StateResult.fail();
+        }
+
+        this.handler = new CommandHandler(this, config);
+
+        getNeutron().getProxy().getEventManager().register(getNeutron(), handler);
 
         return StateResult.success();
     }
@@ -81,6 +104,8 @@ public class CommandModule extends Module {
                 .forEach(getNeutron().getProxy().getCommandManager()::unregister);
 
         commands.clear();
+
+        getNeutron().getProxy().getEventManager().unregisterListener(getNeutron(), handler);
 
         return StateResult.success();
     }

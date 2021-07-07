@@ -24,16 +24,15 @@
 */
 package me.crypnotic.neutron.module.announcement;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.velocitypowered.api.scheduler.ScheduledTask;
-
 import me.crypnotic.neutron.api.StateResult;
 import me.crypnotic.neutron.api.configuration.Configuration;
 import me.crypnotic.neutron.api.module.Module;
 import me.crypnotic.neutron.util.ConfigHelper;
 import ninja.leaping.configurate.ConfigurationNode;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AnnouncementModule extends Module {
 
