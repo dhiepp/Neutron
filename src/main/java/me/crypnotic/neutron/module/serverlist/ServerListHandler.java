@@ -24,10 +24,10 @@
 */
 package me.crypnotic.neutron.module.serverlist;
 
+import com.velocitypowered.api.event.PostOrder;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyPingEvent;
 import com.velocitypowered.api.proxy.Player;
-import com.velocitypowered.api.proxy.server.ServerPing;
 import com.velocitypowered.api.proxy.server.ServerPing.Builder;
 import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.util.StringHelper;
@@ -40,20 +40,13 @@ public class ServerListHandler {
     private final ServerListModule module;
     private final ServerListConfig config;
 
-    @Subscribe
+    @Subscribe(order = PostOrder.LAST)
     public void onServerListPing(ProxyPingEvent event) {
-        ServerPing original = event.getPing();
-
-        int playerCount = module.getNeutron().getProxy().getPlayerCount();
-
-        Builder builder = ServerPing.builder();
-
-        builder.version(original.getVersion());
-        builder.onlinePlayers(playerCount);
-
-        original.getFavicon().ifPresent(builder::favicon);
+        Builder builder = event.getPing().asBuilder();
 
         builder.description(config.getMotd());
+
+        int playerCount = builder.getOnlinePlayers();
 
         switch (config.getPlayerCount().getAction()) {
         case CURRENT:
