@@ -1,5 +1,5 @@
 plugins {
-	id 'com.github.johnrengelman.shadow' version '8.1.1'
+	id 'com.gradleup.shadow' version '9.3.1'
 	id 'maven-publish'
 	id 'java'
 }
@@ -50,9 +50,9 @@ sourceSets.main.java.srcDir(generateTemplates.map { it.outputs })
 
 publishing {
 	publications {
-	    shadow(MavenPublication) { publication ->
-      		from project.shadow.component(publication)
-    	}
+	    shadow(MavenPublication) {
+			from components.shadow
+		}
 	}
 	
 	repositories {
