@@ -37,8 +37,8 @@ import me.crypnotic.neutron.module.command.CommandModule;
 import me.crypnotic.neutron.module.connectmessage.ConnectMessageModule;
 import me.crypnotic.neutron.module.serverlist.ServerListModule;
 import net.kyori.adventure.text.Component;
-import ninja.leaping.configurate.ConfigurationNode;
-import ninja.leaping.configurate.objectmapping.serialize.TypeSerializers;
+import org.spongepowered.configurate.ConfigurationNode;
+import org.spongepowered.configurate.serialize.TypeSerializerCollection;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,17 +58,15 @@ public class ModuleManager implements Reloadable {
         modules.put(CommandModule.class, new CommandModule());
         modules.put(ServerListModule.class, new ServerListModule());
 
-        registerSerializers();
-
         int enabled = 0;
         for (Module module : modules.values()) {
             ConfigurationNode node = configuration.getNode(module.getName());
-            if (node.isVirtual()) {
+            if (node.virtual()) {
                 neutron.getLogger().warn("Failed to load module: " + module.getName());
                 continue;
             }
 
-            module.setEnabled(node.getNode("enabled").getBoolean());
+            module.setEnabled(node.node("enabled").getBoolean());
             if (module.isEnabled()) {
                 if (module.init().isSuccess()) {
                     enabled += 1;
@@ -103,12 +101,12 @@ public class ModuleManager implements Reloadable {
         int enabled = 0;
         for (Module module : modules.values()) {
             ConfigurationNode node = configuration.getNode(module.getName());
-            if (node.isVirtual()) {
+            if (node.virtual()) {
                 neutron.getLogger().warn("Failed to reload module: " + module.getName());
                 continue;
             }
 
-            boolean newState = node.getNode("enabled").getBoolean();
+            boolean newState = node.node("enabled").getBoolean();
 
             if (module.isEnabled() && !newState) {
                 module.shutdown();
@@ -143,10 +141,6 @@ public class ModuleManager implements Reloadable {
         modules.values().stream().filter(Module::isEnabled).forEach(Module::shutdown);
 
         return StateResult.success();
-    }
-
-    private void registerSerializers() {
-        TypeSerializers.getDefaultSerializers().registerType(TypeToken.of(Component.class), new ComponentSerializer());
     }
 
     public StateResult save() {

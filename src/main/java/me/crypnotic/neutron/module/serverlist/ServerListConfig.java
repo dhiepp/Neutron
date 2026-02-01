@@ -26,8 +26,9 @@ package me.crypnotic.neutron.module.serverlist;
 
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
-import ninja.leaping.configurate.objectmapping.Setting;
-import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
+import org.spongepowered.configurate.objectmapping.meta.Comment;
+import org.spongepowered.configurate.objectmapping.meta.Setting;
+import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -51,7 +52,8 @@ public class ServerListConfig {
     public static class PlayerCount {
 
         @Getter
-        @Setting(value = "action", comment = "      # The server list player count has three different actions:\r\n" + "        # \r\n"
+        @Setting(value = "action")
+        @Comment("      # The server list player count has three different actions:\r\n" + "        # \r\n"
                 + "        # CURRENT - player count matches the number of players online\r\n"
                 + "        # ONEMORE - player count shows the number of players online plus 1 \r\n"
                 + "        # PING - player count shows the sum of all backend servers' max player counts. Cached every 5 minutes\r\n"
@@ -75,7 +77,8 @@ public class ServerListConfig {
     public static class ServerPreview {
 
         @Getter
-        @Setting(value = "action", comment = "      # The server list preview has three different actions:\r\n" + "        # \r\n"
+        @Setting(value = "action")
+        @Comment("      # The server list preview has three different actions:\r\n" + "        # \r\n"
                 + "        # MESSAGE - preview will show the messages defined under `messages`\r\n"
                 + "        # PLAYERS - preview matches the vanilla server preview of showing online players\r\n"
                 + "        # EMPTY - preview is empty\r\n" + "        #\r\n" + "        # `messages` is only used with the MESSAGE preview type")

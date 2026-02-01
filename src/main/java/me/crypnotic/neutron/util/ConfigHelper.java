@@ -24,17 +24,16 @@
 */
 package me.crypnotic.neutron.util;
 
-import com.google.common.reflect.TypeToken;
-import ninja.leaping.configurate.ConfigurationNode;
-import ninja.leaping.configurate.objectmapping.ObjectMappingException;
+import org.spongepowered.configurate.ConfigurationNode;
+import org.spongepowered.configurate.serialize.SerializationException;
 
 public class ConfigHelper {
 
     @SuppressWarnings("unchecked")
     public static <T> T getSerializable(ConfigurationNode node, T config) {
         try {
-            return node.getValue(TypeToken.of((Class<T>) config.getClass()), config);
-        } catch (ObjectMappingException exception) {
+            return node.get((Class<T>) config.getClass(), config);
+        } catch (SerializationException exception) {
             exception.printStackTrace();
         }
         return null;
@@ -45,10 +44,10 @@ public class ConfigHelper {
         try {
             U copy = (U) node.copy();
 
-            copy.setValue(TypeToken.of((Class<T>) config.getClass()), config);
+            copy.set((Class<T>) config.getClass(), config);
 
             return copy;
-        } catch (ObjectMappingException exception) {
+        } catch (SerializationException exception) {
             exception.printStackTrace();
         }
         return null;

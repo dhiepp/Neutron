@@ -26,8 +26,9 @@ package me.crypnotic.neutron.manager.user.holder;
 
 import com.velocitypowered.api.command.CommandSource;
 import lombok.Data;
-import ninja.leaping.configurate.objectmapping.Setting;
-import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
+import org.spongepowered.configurate.objectmapping.meta.Comment;
+import org.spongepowered.configurate.objectmapping.meta.Setting;
+import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 import java.lang.ref.WeakReference;
 
@@ -37,10 +38,12 @@ class PlayerData {
 
     // Persistent data - this is saved to disk.
 
-    @Setting(comment = "The version of this config. Don't change this!")
+    @Setting
+    @Comment("The version of this config. Don't change this!")
     private int configVersion = 1;
 
-    @Setting(comment = "The player's last known username.")
+    @Setting
+    @Comment("The player's last known username.")
     private String username;
 
     // Non-persisted data - this is not saved when the user is unloaded.

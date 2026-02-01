@@ -30,7 +30,7 @@ import lombok.RequiredArgsConstructor;
 import me.crypnotic.neutron.api.configuration.Configuration;
 import me.crypnotic.neutron.api.user.User;
 import me.crypnotic.neutron.util.ConfigHelper;
-import ninja.leaping.configurate.ConfigurationNode;
+import org.spongepowered.configurate.ConfigurationNode;
 
 import java.lang.ref.WeakReference;
 import java.util.Optional;

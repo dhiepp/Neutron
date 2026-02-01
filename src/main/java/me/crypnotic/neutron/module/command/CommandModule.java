@@ -29,7 +29,8 @@ import me.crypnotic.neutron.api.StateResult;
 import me.crypnotic.neutron.api.command.CommandWrapper;
 import me.crypnotic.neutron.api.module.Module;
 import me.crypnotic.neutron.util.ConfigHelper;
-import ninja.leaping.configurate.ConfigurationNode;
+import org.spongepowered.configurate.ConfigurationNode;
+import org.spongepowered.configurate.serialize.SerializationException;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -53,29 +54,33 @@ public class CommandModule extends Module {
 
     @Override
     public StateResult init() {
-        ConfigurationNode options = getRootNode().getNode("options");
-        if (options.isVirtual()) {
+        ConfigurationNode options = getRootNode().node("options");
+        if (options.virtual()) {
             getNeutron().getLogger().warn("No config entry found for command module options");
             return StateResult.fail();
         }
 
         for (Commands spec : Commands.values()) {
-            ConfigurationNode node = options.getNode(spec.getKey());
-            if (node.isVirtual()) {
+            ConfigurationNode node = options.node(spec.getKey());
+            if (node.virtual()) {
                 getNeutron().getLogger().warn("No config entry for command: " + spec.getKey());
                 continue;
             }
 
             CommandWrapper wrapper = spec.getSupplier().get();
 
-            List<String> aliases = node.getNode("aliases").getList(Object::toString);
+            try {
+                List<String> aliases = node.node("aliases").getList(String.class);
 
-            wrapper.setEnabled(node.getNode("enabled").getBoolean());
-            wrapper.setAliases(aliases.stream().skip(1).toArray(String[]::new));
+                wrapper.setEnabled(node.node("enabled").getBoolean());
+                wrapper.setAliases(aliases.stream().skip(1).toArray(String[]::new));
 
-            if (wrapper.isEnabled()) {
-                getNeutron().getProxy().getCommandManager().register(
-                        aliases.get(0), wrapper, wrapper.getAliases());
+                if (wrapper.isEnabled()) {
+                    getNeutron().getProxy().getCommandManager().register(
+                            aliases.get(0), wrapper, wrapper.getAliases());
+                }
+            } catch (SerializationException exception) {
+                exception.printStackTrace();
             }
 
             commands.put(spec, wrapper);

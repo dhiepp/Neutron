@@ -25,36 +25,42 @@
 package me.crypnotic.neutron.manager.user;
 
 import lombok.Getter;
-import ninja.leaping.configurate.objectmapping.Setting;
-import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
+import org.spongepowered.configurate.objectmapping.meta.Comment;
+import org.spongepowered.configurate.objectmapping.meta.Setting;
+import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 @ConfigSerializable
 public class UserConfig {
 
     @Getter
-    @Setting(value = "cache", comment = "Advanced settings controlling how users are kept in memory")
+    @Setting(value = "cache")
+    @Comment("Advanced settings controlling how users are kept in memory")
     private Cache cache = new Cache();
 
     @Getter
-    @Setting(value = "console", comment = "Default settings for the console user")
+    @Setting(value = "console")
+    @Comment("Default settings for the console user")
     private Console console = new Console();
 
     @ConfigSerializable
     public static class Cache {
 
         @Getter
-        @Setting(value = "max-size", comment = "Maximum number of users to keep loaded")
+        @Setting(value = "max-size")
+        @Comment("Maximum number of users to keep loaded")
         private int maxSize = 100;
 
         @Getter
-        @Setting(value = "expiry", comment = "How long after its last access a user should stay loaded in minutes")
+        @Setting(value = "expiry")
+        @Comment("How long after its last access a user should stay loaded in minutes")
         private int expiryMins = 30;
     }
 
     @ConfigSerializable
     public static class Console {
         @Getter
-        @Setting(value = "name", comment = "The console user's name")
+        @Setting(value = "name")
+        @Comment("The console user's name")
         private String name = "Console";
     }
 }

@@ -29,11 +29,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import me.crypnotic.neutron.api.serializer.ComponentSerializer;
 import me.crypnotic.neutron.util.FileHelper;
-import ninja.leaping.configurate.ConfigurationNode;
-import ninja.leaping.configurate.ConfigurationOptions;
-import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
-import ninja.leaping.configurate.loader.ConfigurationLoader;
+import net.kyori.adventure.text.Component;
+import org.spongepowered.configurate.ConfigurationNode;
+import org.spongepowered.configurate.ConfigurationOptions;
+import org.spongepowered.configurate.hocon.HoconConfigurationLoader;
+import org.spongepowered.configurate.loader.ConfigurationLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,7 +81,7 @@ public class Configuration {
     }
 
     public ConfigurationNode getNode(Object... values) {
-        return node.getNode(values);
+        return node.node(values);
     }
 
     public void setNode(ConfigurationNode node) {
@@ -115,7 +117,11 @@ public class Configuration {
             try {
                 File file = FileHelper.getOrCreate(folder, name);
                 ConfigurationLoader<?> loader = HoconConfigurationLoader.builder()
-                        .setDefaultOptions(ConfigurationOptions.defaults().setShouldCopyDefaults(true)).setFile(file).build();
+                        .defaultOptions(ConfigurationOptions.defaults()
+                                .shouldCopyDefaults(true)
+                                .serializers(build -> build.register(Component.class, new ComponentSerializer())))
+                        .file(file)
+                        .build();
 
                 ConfigurationNode node = loader.load();
 

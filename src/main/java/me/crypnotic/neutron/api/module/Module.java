@@ -29,7 +29,7 @@ import lombok.Setter;
 import me.crypnotic.neutron.NeutronPlugin;
 import me.crypnotic.neutron.api.Neutron;
 import me.crypnotic.neutron.api.Reloadable;
-import ninja.leaping.configurate.ConfigurationNode;
+import org.spongepowered.configurate.ConfigurationNode;
 
 public abstract class Module implements Reloadable {
 
@@ -44,6 +44,6 @@ public abstract class Module implements Reloadable {
     }
 
     public ConfigurationNode getRootNode() {
-        return getNeutron().getModuleManager().getRoot().getNode(getName());
+        return getNeutron().getModuleManager().getRoot().node(getName());
     }
 }
